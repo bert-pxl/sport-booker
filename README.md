@@ -1,5 +1,7 @@
 # sport-booker
 SportBooker is your ultimate solution for hassle-free sports facility reservations. 
+Easily find and book sports venues based on location, availability, and activity type. 
+With secure payment options and convenient notifications, managing your sports bookings has never been easier. Join the community of active individuals and facilities today with SportBooker!
 
 
 ## Must Have:
