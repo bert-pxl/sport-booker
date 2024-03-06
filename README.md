@@ -2,7 +2,7 @@
 SportBooker is your ultimate solution for hassle-free sports facility reservations. 
 
 
-Must Have:
+## Must Have:
 Een gebruikers in staat te stellen een reservatie te maken. 
 1.	Stap 1 sport te kiezen, 
 2.	Stap 2 een dag te kiezen, 
@@ -11,18 +11,18 @@ Een gebruikers in staat te stellen een reservatie te maken.
 5.	Stap 4 Naam geven  + melden van lidmaatschap
 6.	Systeem geeft een overzicht van de reservatie
 7.	Stap 6 reservatie bevestigen
-Should Have:
+## Should Have:
 Mogelijkheid voor beheerders om sportfaciliteiten toe te voegen, te bewerken en te verwijderen.
 1.	Toevoegen
 2.	Overzicht  all facilities
 3.	Aanpassen van een veld
 4.	Verwijderen van een veld
 Mogelijkheid voor beheerders om een overzicht van alle booking te bekijken, annuleren van een booking, de details van een booking bekijken.
-Could Have:
+## Could Have:
 1.	Integratie met Google calendar
 2.	De beheerder krijg een overzicht van de opbrengst van de maand/week/dag
 3.	Een gebruiker krijgt een overzicht van de faciliteiten op een locatie
 4.	Een gebruiker krijgt de contact gegevens en openingsuren te zien
 5.	Een beheerder kan de openingsuren en contactgegevens aanpassen. 
-Won't Have (At least for now):
+## Won't Have (At least for now):
 Login systeem voor leden (registratie, beheer, ...)
