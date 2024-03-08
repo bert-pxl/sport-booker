@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sport-booker"
+version = "0.0.1"
+authors = [
+    { name="Raf", email="" },
+    { name="Bert", email="" },
+]
+description = "SportBooker is your ultimate solution for hassle-free sports facility reservations"
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python ::  3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/bert-pxl/sport-booker"
+Issues = "https://github.com/bert-pxl/sport-booker/issues"
