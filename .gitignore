@@ -167,6 +167,6 @@ sonar-project.properties
 
 # Project generated files
 #  Don't load files that were generate by the project
-logs
+logs*/*.log
 
 

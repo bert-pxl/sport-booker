@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "mysql" : {
+      "host": "localhost",
+      "user": "pxl",
+      "passwd": "Password123!",
+      "db": "sport-booker"
+  },
+  "sqlite" : {
+      "file": "../database/sport-booker.db"
+  }
+}

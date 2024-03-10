@@ -3,28 +3,73 @@ SportBooker is your ultimate solution for hassle-free sports facility reservatio
 Easily find and book sports venues based on location, availability, and activity type. 
 With secure payment options and convenient notifications, managing your sports bookings has never been easier. Join the community of active individuals and facilities today with SportBooker!
 
+## Project Metadata
 
-## Must Have:
-Een gebruikers in staat te stellen een reservatie te maken. 
-1.	Stap 1 sport te kiezen, 
-2.	Stap 2 een dag te kiezen, 
-3.	het systeem geeft dan de beschikbare uren voor elk beschikbaar veld terug.
-4.	Stap 3 beschikbaar tijdslots kiezen
-5.	Stap 4 Naam geven  + melden van lidmaatschap
-6.	Systeem geeft een overzicht van de reservatie
-7.	Stap 6 reservatie bevestigen
-## Should Have:
-Mogelijkheid voor beheerders om sportfaciliteiten toe te voegen, te bewerken en te verwijderen.
-1.	Toevoegen
-2.	Overzicht  all facilities
-3.	Aanpassen van een veld
-4.	Verwijderen van een veld
-Mogelijkheid voor beheerders om een overzicht van alle booking te bekijken, annuleren van een booking, de details van een booking bekijken.
-## Could Have:
-1.	Integratie met Google calendar
-2.	De beheerder krijg een overzicht van de opbrengst van de maand/week/dag
-3.	Een gebruiker krijgt een overzicht van de faciliteiten op een locatie
-4.	Een gebruiker krijgt de contact gegevens en openingsuren te zien
-5.	Een beheerder kan de openingsuren en contactgegevens aanpassen. 
-## Won't Have (At least for now):
-Login systeem voor leden (registratie, beheer, ...)
+- **Name**: sport-booker
+- **Version**: 0.0.1
+- **Authors**: Raf, Bert
+- **License**: GNU General Public License v3.0
+- **Requires Python**: >=3.11
+- **Dependencies**:
+  - sqlalchemy
+  - sqlalchemy-utils
+- **Optional Dependencies**:
+  - mysql: mysqlclient
+
+## Installation
+
+To install this project, follow these steps:
+1. Make sure Python 3 is installed on your system. If not, you can download and install Python from [python.org](https://www.python.org/).
+2. Clone this repository to your local machine:
+    ```bash
+    git clone https://github.com/bert-pxl/sport-booker.git
+    ```
+3. Navigate to the cloned directory:
+    ```bash
+    cd sport-booker
+    ```
+4. Install the required dependencies using pip:
+
+   ```bash
+   pip install -e .
+   ```
+5. Optional when using mysal
+    ```bash
+    pip install -e .[mysql]
+    ```
+## Usage
+
+To run the project, execute the following command:
+```bash
+python main.py
+```
+This will start the application with the configured settings.
+
+## Database
+
+The project is compatible with mysql
+
+![Database Schema](/docs/database/schema.png)
+
+## Analyse
+
+During the initial analysis phase, the project requirements and features were prioritized using the MoSCoW method (Must-have, Should-have, Could-have, Won't-have). This prioritization helped in defining the project scope and determining the essential features for the initial release.
+
+[MoSCoW analysis](/docs/Moscow.md)
+
+## Contributing
+
+Contributions to this project are welcome. You can fork this repository and then submit a pull request with your changes.
+
+## Issues
+
+If you encounter any issues with Sport Booker, please report them on the [issues page](https://github.com/bert-pxl/sport-booker/issues) of this repository.
+
+## License
+
+Sport Booker is licensed under the [GNU General Public License v3.0](https://opensource.org/licenses/GPL-3.0). See the `LICENSE` file for more information.
+
+## Project Information
+
+- **Homepage**: [https://github.com/bert-pxl/sport-booker](https://github.com/bert-pxl/sport-booker)
+- **Issues**: [https://github.com/bert-pxl/sport-booker/issues](https://github.com/bert-pxl/sport-booker/issues)

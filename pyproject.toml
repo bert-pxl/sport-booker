@@ -11,14 +11,21 @@ authors = [
 ]
 description = "SportBooker is your ultimate solution for hassle-free sports facility reservations"
 readme = "README.md"
+license = "GPL-3.0-or-later"
 requires-python = ">=3.11"
 classifiers = [
     "Programming Language :: Python ::  3",
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Operating System :: OS Independent",
 ]
-dependencies = []
-
+dependencies = [
+    "sqlalchemy",
+    "sqlalchemy-utils"
+]
+[project.optional-dependencies]
+mysql = [
+    "mysqlclient"
+]
 [project.urls]
 Homepage = "https://github.com/bert-pxl/sport-booker"
 Issues = "https://github.com/bert-pxl/sport-booker/issues"
