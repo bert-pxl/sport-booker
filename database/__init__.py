@@ -1,14 +1,16 @@
 from logs import LOGGER
-import pathlib
 import json
+from sqlalchemy import create_engine, exc
+from sqlalchemy.orm import sessionmaker
+import pathlib
 
 LOGGER.info('Loading database configuration')
 
 
-def load_config(file_name: str = '../database/database-config.json'):
+def load_config(file_name: str = 'database-config.json'):
     try:
-        script_dir = pathlib.Path(__file__).resolve().parent
-        config_file = script_dir / file_name
+        database_dir = pathlib.Path(__file__).resolve().parent
+        config_file = database_dir / file_name
 
         with config_file.open(mode='r') as f_in:
             config = json.load(f_in)
@@ -33,4 +35,5 @@ def load_config(file_name: str = '../database/database-config.json'):
         return None
 
 
-CONNECTION_STRING = load_config()
+ENGINE = create_engine(load_config(), echo=False)
+LOCAL_SESSION = sessionmaker(bind=ENGINE)

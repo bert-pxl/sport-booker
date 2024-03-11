@@ -4,9 +4,10 @@ import pathlib
 import json
 
 
-def setup_logging(file_name: str = "../logs/logging-config.json"):
+def setup_logging(file_name: str = "logging-config.json"):
     try:
-        config_file = pathlib.Path(file_name)
+        logging_dir = pathlib.Path(__file__).resolve().parent
+        config_file = logging_dir / file_name
         if not config_file.exists():
             raise FileNotFoundError(f"The file '{file_name}' was not found.")
 
