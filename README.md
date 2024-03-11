@@ -55,7 +55,7 @@ The project is compatible with mysql
 
 During the initial analysis phase, the project requirements and features were prioritized using the MoSCoW method (Must-have, Should-have, Could-have, Won't-have). This prioritization helped in defining the project scope and determining the essential features for the initial release.
 
-[MoSCoW analysis](/docs/Moscow.md)
+[MoSCoW analysis](/docs/MoSCoW.md)
 
 ## Contributing
 
