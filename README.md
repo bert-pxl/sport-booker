@@ -41,7 +41,7 @@ To install this project, follow these steps:
 
 To run the project, execute the following command:
 ```bash
-python main.py
+python sport_booker
 ```
 This will start the application with the configured settings.
 
