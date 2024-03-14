@@ -20,11 +20,15 @@ classifiers = [
 ]
 dependencies = [
     "sqlalchemy",
-    "sqlalchemy-utils"
+    "sqlalchemy-utils",
+    "PyQT5"
 ]
 [project.optional-dependencies]
 mysql = [
     "mysqlclient"
+]
+pyqt = [
+    "pyQT5-tools"
 ]
 [project.urls]
 Homepage = "https://github.com/bert-pxl/sport-booker"
