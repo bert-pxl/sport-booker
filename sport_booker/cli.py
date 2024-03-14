@@ -1,9 +1,11 @@
+
+from logs import logger
 from database import database_manager as db
 
 
 def main():
     db_manager = db.DatabaseManager()
-
+    logger.info("start application")
     while True:
         print("\nMenu:")
         print("1. Create database")
