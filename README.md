@@ -51,6 +51,8 @@ The project is compatible with mysql
 
 ![Database Schema](/docs/database/schema.png)
 
+More information on the database can be found [here](/docs/database/database.md)
+
 ## Analyse
 
 During the initial analysis phase, the project requirements and features were prioritized using the MoSCoW method (Must-have, Should-have, Could-have, Won't-have). This prioritization helped in defining the project scope and determining the essential features for the initial release.
