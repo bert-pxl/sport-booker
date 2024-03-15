@@ -3,18 +3,20 @@ from sport_booker.models import models as models
 
 import json
 import pathlib
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine, select, join, alias
+from sqlalchemy.orm import sessionmaker, aliased
+from sqlalchemy.exc import SQLAlchemyError
+
 
 
 class DatabaseManager:
-
     def __init__(self):
-        logger.info('Loading database configuration')
-        self.engine = create_engine(self.load_config(), echo=True)
+        logger.debug('Initializing database manager')
+        self.engine = create_engine(self.load_config(), echo=False)
         self.session = sessionmaker(bind=self.engine)
 
     def load_config(self, file_name: str = 'database-config.json'):
+        logger.debug('Loading configuration')
         try:
             database_dir = pathlib.Path(__file__).resolve().parent
             config_file = database_dir / file_name
@@ -41,64 +43,127 @@ class DatabaseManager:
             logger.error(f"The file '{file_name}' was not found in the same directory as the script.")
             return None
 
-    def show_locations(self):
-        return self.session().query(models.Location).all()
+    def get_locations(self):
+        logger.debug('Get all locations')
+        try:
+            return self.session().execute(select(models.Location.id, models.Location.name)
+                                          .order_by(models.Location.name)).all()
+        except SQLAlchemyError as e:
+            logger.error(f"An error occurred while fetching locations: {e}")
+            return None
 
-    def show_fields(self):
-        return self.session().query(models.Facility).all()
+    def get_location_by_id(self, location_id: int):
+        logger.debug('Get one location')
+        try:
+            return self.session().scalars(select(models.Location)
+                                          .where(models.Location.id == location_id).limit(1)).first()
+        except SQLAlchemyError as e:
+            logger.error(f"An error occurred while fetching location with ID {location_id}: {e}")
+            return None
 
-    def show_pricing(self):
-        return self.session().query(models.Price).all()
+    def get_facilities_by_sport_id(self, sport_id: int):
+        logger.debug('Get facilities by sport')
+        try:
+            return self.session().scalars(select(models.Facility)
+                                          .where(models.Facility.sports.any(models.Sport.id == sport_id))).all()
+        except SQLAlchemyError as e:
+            logger.error(f"An error occurred while fetching facilities by sport with ID {sport_id}: {e}")
+            return None
 
-    def show_sports(self):
-        return self.session().query(models.Sport).all()
+    def get_prices(self):
+        logger.debug('Get all prices')
+        try:
+            return self.session().execute(select(models.Price.id, models.Price.name, models.Price.price)).all()
+        except SQLAlchemyError as e:
+            logger.error(f"An error occurred while fetching prices: {e}")
+            return None
+
+    def get_sports(self):
+        logger.debug('Get all sports')
+        try:
+            return self.session().scalars(select(models.Sport)).all()
+        except SQLAlchemyError as e:
+            logger.error(f"An error occurred while fetching sports: {e}")
+            return None
+
+    def get_sports_by_location_id(self, location_id: int):
+        logger.debug('Get all possible sports by location id')
+        try:
+            stmt = (
+                select(models.Sport)
+                .select_from(join(models.Sport, models.facility_sport))
+                .join(aliased(models.facility_sport))
+                .where(models.Facility.location_id == location_id)
+                .distinct()
+            )
+            return self.session().scalars(stmt).all()
+        except SQLAlchemyError as e:
+            logger.error(f"An error occurred while fetching sports by location {location_id}: {e}")
+            return None
 
     def create_database(self):
-        models.Base.metadata.create_all(self.engine)
+        logger.debug('Creating Tables for the Database')
+        try:
+            models.Base.metadata.create_all(self.engine)
+        except SQLAlchemyError as e:
+            logger.error(f"An error occurred trying to create the database: {e}")
+            return None
 
     def initialize_database_with_dummy_data(self):
+        logger.debug('Initializing dummy data for the database')
+        try:
+            db = self.session()
 
-        db = self.session()
+            s1 = models.Sport("Tennis", "kleine gele bal")
+            s2 = models.Sport("Squash", "hele kleine zwarte bal")
+            s3 = models.Sport("Padel", "kleine rode bal")
+            s4 = models.Sport("Voetbal", "medium zwart witte bal")
+            s5 = models.Sport("Volleybal", "medium gekleurde bal")
+            s6 = models.Sport("Basketbal", "grote orange bal")
 
-        s1 = models.Sport("Tennis", "kleine gele bal")
-        s2 = models.Sport("Squash", "hele kleine zwarte bal")
-        s3 = models.Sport("Padel", "kleine rode bal")
-        s4 = models.Sport("Voetbal", "medium zwart witte bal")
-        s5 = models.Sport("Volleybal", "medium gekleurde bal")
-        s6 = models.Sport("Basketbal", "grote orange bal")
+            db.add_all([s1,s2,s3,s4,s5,s6])
+            logger.debug('\tCreating Sports data Database')
+            db.commit()
 
-        db.add(s1)
-        db.add(s2)
-        db.add(s3)
-        db.add(s4)
-        db.add(s5)
-        db.add(s6)
-        db.commit()
+            p1 = models.Price("leden prijs", 5)
+            p2 = models.Price("niet leden prijs", 12)
+            p3 = models.Price("vriendenprijs", 25)
 
-        p1 = models.Price("leden prijs", 5)
-        p2 = models.Price("niet leden prijs", 12)
-        p3 = models.Price("vriendenprijs", 25)
+            db.add_all([p1,p2,p3])
+            logger.debug('\tCreating Prices data Database')
+            db.commit()
 
-        db.add(p1)
-        db.add(p2)
-        db.add(p3)
-        db.commit()
+            l1 = models.Location("Eerste Locatie", "Placeholder voor de eerste locatie", "adres van deze locatie",
+                                 "123456789",
+                                 "email")
+            db.add(l1)
+            logger.debug('\tCreating Location data Database')
+            db.commit()
 
-        l1 = models.Location("Eerste Locatie", "Placeholder voor de eerste locatie", "adres van deze locatie",
-                             "123456789",
-                             "email")
-        db.add(l1)
-        db.commit()
+            f1 = models.Facility("veld 1", l1.id, [s1, s3], [p1, p2, p3])
+            f2 = models.Facility("veld 2", l1.id, [s2, s3], [p1, p2, p3])
+            f3 = models.Facility("veld 3", l1.id, [s1, s2], [p1, p2, p3])
 
-        f1 = models.Facility("veld 1", l1.id,[s1, s3], [p1,p2,p3])
-        f2 = models.Facility("veld 2", l1.id,[s2, s3], [p1,p2,p3])
-        f3 = models.Facility("veld 3", l1.id, [s1, s2], [p1,p2,p3])
+            db.add_all([f1, f2, f3])
+            logger.debug('\tCreating Facility data Database')
+            db.commit()
 
-        db.add_all([f1,f2,f3])
-        db.commit()
+        except SQLAlchemyError as e:
+            logger.error(f"An error occurred while initializing dummy data: {e}")
+            return None
 
     def drop_database(self):
-        models.Base.metadata.drop_all(self.engine)
+        logger.debug('Dropping Database')
+        try:
+            models.Base.metadata.drop_all(self.engine)
+        except SQLAlchemyError as e:
+            logger.error(f"An error occurred while dropping the database: {e}")
+        return None
 
     def close_connection(self):
-        self.session().close()
+        logger.debug('Closing connection')
+        try:
+            self.session().close()
+        except SQLAlchemyError as e:
+            logger.error(f"An error occurred while closing the connection to the database: {e}")
+        return None
