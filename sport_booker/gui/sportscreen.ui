@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>900</width>
+    <width>1195</width>
     <height>600</height>
    </rect>
   </property>
@@ -58,7 +58,7 @@ background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba
      <string>Kies je sport</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="padel">
+   <widget class="QPushButton" name="sport_1">
     <property name="geometry">
      <rect>
       <x>290</x>
@@ -76,7 +76,7 @@ font: 75 italic 12pt &quot;Verdana&quot;;</string>
      <string>Padel</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="tennis">
+   <widget class="QPushButton" name="sport_2">
     <property name="geometry">
      <rect>
       <x>290</x>
@@ -94,7 +94,7 @@ font: 75 italic 12pt &quot;Verdana&quot;;</string>
      <string>Tennis</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="squash">
+   <widget class="QPushButton" name="sport_3">
     <property name="geometry">
      <rect>
       <x>290</x>
@@ -112,7 +112,7 @@ font: 75 italic 12pt &quot;Verdana&quot;;</string>
      <string>Squash</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="snooker">
+   <widget class="QPushButton" name="sport_4">
     <property name="geometry">
      <rect>
       <x>470</x>
@@ -130,7 +130,7 @@ font: 75 italic 12pt &quot;Verdana&quot;;</string>
      <string>Snooker</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pool">
+   <widget class="QPushButton" name="sport_5">
     <property name="geometry">
      <rect>
       <x>470</x>
@@ -148,7 +148,7 @@ font: 75 italic 12pt &quot;Verdana&quot;;</string>
      <string>Pool</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="darts">
+   <widget class="QPushButton" name="sport_6">
     <property name="geometry">
      <rect>
       <x>470</x>
@@ -164,6 +164,42 @@ font: 75 italic 12pt &quot;Verdana&quot;;</string>
     </property>
     <property name="text">
      <string>Darts</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="sport_button_next">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>530</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:20px;
+background-color: rgb(170, 255, 255);
+font: 75 italic 12pt &quot;Verdana&quot;;</string>
+    </property>
+    <property name="text">
+     <string>VOLGENDE</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="sport_button_previous">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>530</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:20px;
+background-color: rgb(170, 255, 255);
+font: 75 italic 12pt &quot;Verdana&quot;;</string>
+    </property>
+    <property name="text">
+     <string>VORIGE</string>
     </property>
    </widget>
   </widget>
