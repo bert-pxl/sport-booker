@@ -11,6 +11,8 @@ class SelectSportScreen(QDialog):
         ui_file = os.path.join(current_dir, "select_sport_screen.ui")
         loadUi(ui_file,self)
         # self.padel.clicked.connect(self.gotoA)
+    # def A():
+    #     print("t is gelukt")
 
 # MAIN
         
