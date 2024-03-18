@@ -3,19 +3,6 @@ SportBooker is your ultimate solution for hassle-free sports facility reservatio
 Easily find and book sports venues based on location, availability, and activity type. 
 With secure payment options and convenient notifications, managing your sports bookings has never been easier. Join the community of active individuals and facilities today with SportBooker!
 
-## Project Metadata
-
-- **Name**: sport-booker
-- **Version**: 0.0.1
-- **Authors**: Raf, Bert
-- **License**: GNU General Public License v3.0
-- **Requires Python**: >=3.11
-- **Dependencies**:
-  - sqlalchemy
-  - sqlalchemy-utils
-- **Optional Dependencies**:
-  - mysql: mysqlclient
-
 ## Installation
 
 To install this project, follow these steps:
@@ -50,6 +37,8 @@ This will start the application with the configured settings.
 The project is compatible with mysql
 
 ![Database Schema](/docs/database/schema.png)
+
+More information on the database can be found [here](/docs/database/database.md)
 
 ## Analyse
 

@@ -1,9 +1,11 @@
+
+from logs import logger
 from database import database_manager as db
 
 
 def main():
     db_manager = db.DatabaseManager()
-
+    logger.info("start application")
     while True:
         print("\nMenu:")
         print("1. Create database")
@@ -11,9 +13,12 @@ def main():
         print("3. Drop database")
         print("4. Show Pricing")
         print("5. Show Locations")
-        print("6. Show Fields")
-        print("7. Show Sports")
-        print("8. Close connection")
+        print("6. Get Location by id 1")
+        print("7. Show Facilites for sport id 1")
+        print("8. Show Sports")
+        print("9. Show Sports by location id 1")
+        print("10. Show Prices")
+        print("20. Close connection")
 
         choice = input("Enter your choice: ")
 
@@ -27,14 +32,20 @@ def main():
             db_manager.drop_database()
             print("Database dropped successfully!")
         elif choice == "4":
-            print(db_manager.show_pricing())
+            print(db_manager.get_prices())
         elif choice == "5":
-            print(db_manager.show_locations())
+            print(db_manager.get_locations())
         elif choice == "6":
-            print(db_manager.show_fields())
+            print(db_manager.get_location_by_id(1))
         elif choice == "7":
-            print(db_manager.show_sports())
+            print(db_manager.get_facilities_by_sport_id(1))
         elif choice == "8":
+            print(db_manager.get_sports())
+        elif choice == "9":
+            print(db_manager.get_sports_by_location_id(1))
+        elif choice == "10":
+            print(db_manager.get_prices())
+        elif choice == "20":
             db_manager.close_connection()
             print("Exiting...")
             break
