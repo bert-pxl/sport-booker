@@ -3,6 +3,7 @@ import sys
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QDialog, QApplication, QWidget,QStackedWidget,QTableWidgetItem
+from PyQt5.QtGui import QPixmap
 
 # --------------------------------------------STARTSCREEN-----------------------------------------------------------
 class Startscreen(QDialog):
@@ -54,6 +55,20 @@ class Locationscreen(QDialog):
 
 # --------------------------------------------SPORTSCREEN--------------------------------------------------------------
 class Sportscreen(QDialog):
+
+    # Get the current directory of the script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Define image paths relative to the script directory
+    image_paths = {
+        "Snooker": os.path.join(script_dir, "..","image", "snooker.jpg"),
+        "Pool": os.path.join(script_dir, "..","image", "pool.jpg"),
+        "Darts": os.path.join(script_dir, "..","image", "darts.jpg"),
+        "Tennis": os.path.join(script_dir, "..","image", "tennis.jpg"),
+        "Padel": os.path.join(script_dir, "..","image", "padel.jpg"),
+        "Squash": os.path.join(script_dir, "..","image", "squash.jpg"),
+    }
+
     def __init__(self):
         super(Sportscreen, self).__init__()
         current_dir = os.path.dirname(__file__)
@@ -69,6 +84,15 @@ class Sportscreen(QDialog):
         # volgende
         self.sport_button_next.clicked.connect(self.gotoDatescreen)
 
+        # sport_button
+        self.sport_button_snooker.clicked.connect(lambda: self.gotoSportimage(self.sport_button_snooker.text()))
+        self.sport_button_pool.clicked.connect(lambda: self.gotoSportimage(self.sport_button_pool.text()))
+        self.sport_button_darts.clicked.connect(lambda: self.gotoSportimage(self.sport_button_darts.text()))
+        self.sport_button_tennis.clicked.connect(lambda: self.gotoSportimage(self.sport_button_tennis.text()))
+        self.sport_button_padel.clicked.connect(lambda: self.gotoSportimage(self.sport_button_padel.text()))
+        self.sport_button_squash.clicked.connect(lambda: self.gotoSportimage(self.sport_button_squash.text()))
+
+
     def gotoLocationscreen(self):
         widget.setCurrentIndex(widget.currentIndex()-1)
 
@@ -76,6 +100,20 @@ class Sportscreen(QDialog):
         datescreen=Datescreen()
         widget.addWidget(datescreen)
         widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def gotoSportimage(self,button_name):
+
+        image_path = self.image_paths.get(button_name)
+        if image_path:
+            pixmap = QPixmap(image_path)
+            if not pixmap.isNull():
+                self.sport_label_image.setPixmap(pixmap)                           
+                self.sport_label_image.setScaledContents(True) # Ensure the image scales to fit the label
+            else:
+                self.sport_label_image.setText("Failed to load image")
+        else:
+            self.sport_label_image.setText("No image path found for this button")
+
 
 
 # ---------------------------------------------------------------------------------------------------------------------
