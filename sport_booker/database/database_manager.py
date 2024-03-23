@@ -8,7 +8,6 @@ from sqlalchemy.orm import sessionmaker, aliased
 from sqlalchemy.exc import SQLAlchemyError
 
 
-
 class DatabaseManager:
     def __init__(self):
         logger.debug('Initializing database manager')
@@ -44,7 +43,7 @@ class DatabaseManager:
             return None
 
     def get_locations(self):
-        logger.debug('Get all locations')
+        logger.debug('Getting all locations')
         try:
             return self.session().execute(select(models.Location.id, models.Location.name)
                                           .order_by(models.Location.name)).all()
@@ -53,7 +52,7 @@ class DatabaseManager:
             return None
 
     def get_location_by_id(self, location_id: int):
-        logger.debug('Get one location')
+        logger.debug('Getting one location')
         try:
             return self.session().scalars(select(models.Location)
                                           .where(models.Location.id == location_id).limit(1)).first()
@@ -61,8 +60,17 @@ class DatabaseManager:
             logger.error(f"An error occurred while fetching location with ID {location_id}: {e}")
             return None
 
+
+    def get_facilities(self):
+        logger.debug('Getting all facilities')
+        try:
+            return self.session().execute(select(models.Facility)).all()
+        except SQLAlchemyError as e:
+            logger.error(f"An error occurred while fetching facilities: {e}")
+            return None
+
     def get_facilities_by_sport_id(self, sport_id: int):
-        logger.debug('Get facilities by sport')
+        logger.debug('Getting facilities by sport')
         try:
             return self.session().scalars(select(models.Facility)
                                           .where(models.Facility.sports.any(models.Sport.id == sport_id))).all()
@@ -70,8 +78,16 @@ class DatabaseManager:
             logger.error(f"An error occurred while fetching facilities by sport with ID {sport_id}: {e}")
             return None
 
+    def get_reservations(self):
+        logger.debug('Getting all reservations')
+        try:
+            return self.session().execute(select(models.Reservation)).all()
+        except SQLAlchemyError as e:
+            logger.error(f"An error occurred while fetching reservations: {e}")
+            return None
+
     def get_prices(self):
-        logger.debug('Get all prices')
+        logger.debug('Getting all prices')
         try:
             return self.session().execute(select(models.Price.id, models.Price.name, models.Price.price)).all()
         except SQLAlchemyError as e:
@@ -79,7 +95,7 @@ class DatabaseManager:
             return None
 
     def get_sports(self):
-        logger.debug('Get all sports')
+        logger.debug('Getting all sports')
         try:
             return self.session().scalars(select(models.Sport)).all()
         except SQLAlchemyError as e:
@@ -87,7 +103,7 @@ class DatabaseManager:
             return None
 
     def get_sports_by_location_id(self, location_id: int):
-        logger.debug('Get all possible sports by location id')
+        logger.debug('Getting all possible sports by location id')
         try:
             stmt = (
                 select(models.Sport)
@@ -99,6 +115,18 @@ class DatabaseManager:
             return self.session().scalars(stmt).all()
         except SQLAlchemyError as e:
             logger.error(f"An error occurred while fetching sports by location {location_id}: {e}")
+            return None
+
+    def make_reservation(self, customer, reservation_date, reservation_start, reservation_end, facility_id):
+        logger.debug('Creating a new reseration')
+        db = self.session()
+        try:
+            reservation = models.Reservation(customer, reservation_date, reservation_start, reservation_end,
+                                             facility_id)
+            db.add(reservation)
+            db.commit()
+        except SQLAlchemyError as e:
+            logger.error(f"An error occurred trying to create the reservation: {e}")
             return None
 
     def create_database(self):
@@ -121,7 +149,7 @@ class DatabaseManager:
             s5 = models.Sport("Volleybal", "medium gekleurde bal")
             s6 = models.Sport("Basketbal", "grote orange bal")
 
-            db.add_all([s1,s2,s3,s4,s5,s6])
+            db.add_all([s1, s2, s3, s4, s5, s6])
             logger.debug('\tCreating Sports data Database')
             db.commit()
 
@@ -129,7 +157,7 @@ class DatabaseManager:
             p2 = models.Price("niet leden prijs", 12)
             p3 = models.Price("vriendenprijs", 25)
 
-            db.add_all([p1,p2,p3])
+            db.add_all([p1, p2, p3])
             logger.debug('\tCreating Prices data Database')
             db.commit()
 
