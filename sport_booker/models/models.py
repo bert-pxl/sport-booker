@@ -141,13 +141,13 @@ class Reservation(Base):
     facility: Mapped[Facility] = relationship(back_populates="reservations", lazy="selectin")
 
     def __init__(self, customer: str, reservation_date: datetime.date,
-                 start_time: datetime.time, end_time: datetime.time, field_id: int):
+                 start_time: datetime.time, end_time: datetime.time, facility_id: int):
         super().__init__()
         self.customer = customer
         self.date = reservation_date
         self.start_time = start_time
         self.end_time = end_time
-        self.field_id = field_id
+        self.facility_id = facility_id
 
 
 class DaysOpen(Base):
